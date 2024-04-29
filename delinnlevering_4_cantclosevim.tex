@@ -1,0 +1,154 @@
+\documentclass[12pt]{article}
+\usepackage{graphicx}
+
+\title{Delinnlevering 4 - cantclosevim}
+\author{
+    Joakim Tollefsen Johannesen\\
+    \texttt{joakimtj@hiof.no}
+    \and
+    Niklas Berby\\
+    \texttt{niklab@hiof.no}
+}
+\begin{document}
+
+\maketitle
+
+\newpage
+\section{Plan for Brukertesting}
+Fra siste brukertest er det en del endringer som er gjort for å forhåpentligvis skape en mer behagelig og enklere brukeropplevelse for de som
+har null kjennskap til API'en.
+
+Disse omhandler da det grunnleggende i API'et som for eksempel:
+\begin{itemize}
+    \item Instansiering av hovedressurser.
+        \begin{itemize}
+            \item Det `fysiske' konseptene som \texttt{Harbor}, \texttt{Ship*}, et al.
+            \item Opprettelse av oppdrag i form av \texttt{Sailing}.
+            \item Opprettelse og bruk av Logging i simulering.
+        \end{itemize}
+    \item Samspillet mellom objektene/klassene/typene.
+    \item Kjøre enkle simuleringer uten å rote seg bort i den dypere funksjonaliteten til API'et.
+\end{itemize}
+
+Vi er da interessert om disse tiltakene har hjulpet, samt om de nye funksjonene som er implementert når en grad av vanskelighet som vi mener er
+akseptabelt.
+Den nye funksjonaliteten er som følger:
+\begin{itemize}
+    \item Bygge strukturene for simulering av frakt.
+    \begin{itemize}
+        \item \texttt{StorageArea}
+        \item \texttt{StorageColumn}
+        \item \texttt{Dock}
+    \end{itemize}
+    \item Opprette kjøretoy som sørger for bevegelse av frakt innenfor havnen.
+    \begin{itemize}
+        \item \texttt{AGV}
+        \item \texttt{Crane}
+    \end{itemize}
+    \item Opprette fraktskipet og dets frakt.
+    \begin{itemize}
+        \item \texttt{Container}
+    \end{itemize}
+    \item Kjøre en enkel frakt simulering.
+\end{itemize}
+
+Brukertestingen vår er da hovedsakelig delt i to `faser' med en tredje om vi føler den er nødvendig for ytterligere informasjon om vi ser at det er store
+misforståelser og hull i de to tidligere fasene.
+
+\subsection{Fase 1} 
+
+I fase én er testgruppen gitt oppgaver som skal i utgangspunktet hjelpe dem å bygge en grunnleggende forståelse av API'et. 
+
+Der det er relevant er de gitt en kort beskrivelse av konseptene. Som for eksempel om det er tvil i hva en havn ér.
+
+Vi har planlagt følgende oppgaver der testgruppen har skriftlig dokumentasjon til API'et tilgjengelig samt intellisens.
+Det blir også gitt hint om de står stille eller føler de trenger det for å forstå oppgaven. Hintene er gitt rekkefølge fra minste nyttig til mest nyttig.
+
+\subsubsection{Oppgave - Opprett en Havn}
+
+En havn er et vannområde der skip og båter kan bli fortøyd. \\ \\
+Opprett en havn og konfigurer den slik at skip kan fortøyes der. \\
+Ta i bruk de klasser, metoder eller konstruktører dere føler er hensiktsmessige. \\ \\
+Her skal testgruppen opprette en havn med en eller flere kaiplasser.
+
+\subsubsection*{Hint}
+
+\begin{enumerate}
+    \item Havn er `Harbor'.
+    \item Kaiplass er `Dock'.
+    \item En havn kan ha flere kaiplasser.
+    \item Benytt hjelpemetode for å lage vilkårlig antall kaiplasser.
+\end{enumerate}
+
+\subsubsection{Oppgave - Opprett et Skip}
+
+Et skip er et fartøy som i kommersielt bruk har enten passasjerer ombord eller gods den frakter. \\ \\
+Opprett et skip dere selv føler er best egnet til å senere utføre en enkel seiling. Det vil si frakt av gods ikke er nødvendig. \\ \\
+Her skal testgruppen opprette et skip. Skipet kan være både av type \texttt{CommercialShip} og \texttt{FreightShip} da simuleringsoppgaven
+ikke tar stilling til dette.
+
+\subsubsection*{Hint}
+
+\begin{enumerate}
+    \item Skip er `\texttt{Ship}'.
+    \item `\texttt{Ship}' er en abstrakt klasse.
+    \item `\texttt{CommercialShip}' vil da være beste analog til et passasjer skip.
+    \item `\texttt{CommercialShip}' vil ikke kunne brukes til frakt av gods.
+\end{enumerate}
+
+\subsubsection{Oppgave - Opprett en eller flere Seilinger}
+
+En seiling er et `oppdrag' der et skip reiser til en kaiplass. Seilingen skjer i et spesifisert tidsrom - altså fra en start-tid til en slutt-tid. \\ \\
+Opprett en eller flere seilinger med grunnlag i de tidligere oppgavene. \\ \\
+Her skal testgruppen opprette seiling(er) med objektene de opprettet i de forrige oppgavene. 
+
+\subsubsection*{Hint}
+
+\begin{enumerate}
+    \item Seiling er `\texttt{Sailing}'.
+    \item `\texttt{Sailing} krever et skip.
+    \item `\texttt{Sailing}' krever et reisemål.
+    \item `\texttt{Sailing}' krever tidsrommet for reisen.
+\end{enumerate}
+
+\subsubsection{Oppgave - Opprett en Logger}
+
+Det er flere typer loggere. Den mest enkle skriver kun relevante beskjeder under simuleringen til konsollen. \\ \\
+Opprett en logger for senere bruk.
+
+Her skal testgruppen opprette en logger som de skal bruke i simulerings klassen for å få utskrift av hendelser i simuleringen.
+
+\subsubsection*{Hint}
+
+\begin{enumerate}
+    \item Loggere har LogLevel(s) som bestemmer hvilke meldinger som skal skrives ut.
+    \item Verbøse-meldinger, Advarsels-meldinger etc.
+    \item Simulering krever en logger.
+\end{enumerate}
+
+\subsubsection{Oppgave - Opprett og Kjør en Simulering}
+
+En simulering kjører de oppdragene (seilingene) som er gitt. \\ \\
+Opprett simulatoren og konfigurer tidligere objekter for å kunne kjøre en simulering. \\ \\
+Den største oppgaven i fase 1. Det viktigste punktet i denne oppgaven er at de får med seg at seilinger er lagret i havnen som skal utføre den.
+De må også lære at de selv må ta hensyn til om en kaiplass er opptatt og selv opprette seilinger der det ikke er noen konflikter
+mellom forskjellige skips reiser for at de skal utføres.
+
+\subsubsection*{Hint}
+
+\begin{enumerate}
+    \item Simulatoren heter `\texttt{SimulateHarbor}'
+    \item Simulatoren krever en Logger for å kunne utføre simuleringen.
+    \item Simulatoren utfører de seilingene i de havnene som er gitt som argument.
+    \item Simulatoren utfører kun de seilingene som er innenfor det gitte tidsrommet til simuleringen.
+\end{enumerate}
+
+\subsection{Fase 2}
+
+\subsection{Fase 3}
+
+\section{Gjennomføring og Evaluering av Brukertesting}
+
+\section{Implementasjon av Grafisk Grensesnitt}
+
+\end{document}

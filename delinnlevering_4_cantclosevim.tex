@@ -52,16 +52,16 @@ Den nye funksjonaliteten er som følger:
     \item Kjøre en enkel frakt simulering.
 \end{itemize}
 
-Brukertestingen vår er da hovedsakelig delt i to `faser' med en tredje om vi føler den er nødvendig for ytterligere informasjon om vi ser at det er store
-misforståelser og hull i de to tidligere fasene.
+Brukertestingen vår er da hovedsakelig i to deler med en tredje om vi føler den er nødvendig for ytterligere informasjon om vi ser at det er store
+misforståelser og hull i de to tidligere delene.
 
-\subsection{Fase 1} 
+\subsection{Del 1} 
 
-I fase én er testgruppen gitt oppgaver som skal i utgangspunktet hjelpe dem å bygge en grunnleggende forståelse av API'et. 
+I del én er testgruppen gitt oppgaver som skal i utgangspunktet hjelpe dem å bygge en grunnleggende forståelse av API'et. 
 
 Der det er relevant er de gitt en kort beskrivelse av konseptene. Som for eksempel om det er tvil i hva en havn ér.
 
-Vi har planlagt følgende oppgaver der testgruppen har skriftlig dokumentasjon til API'et tilgjengelig samt intellisens.
+Vi har planlagt følgende oppgaver der testgruppen har intellisens.
 Det blir også gitt hint om de står stille eller føler de trenger det for å forstå oppgaven. Hintene er gitt rekkefølge fra minste nyttig til mest nyttig.
 
 \subsubsection{Oppgave - Opprett en Havn}
@@ -144,16 +144,51 @@ mellom forskjellige skips reiser for at de skal utføres.
 \end{enumerate}
 
 \newpage
-\subsection{Fase 2}
+\subsection{Del 2}
 
-I fase to skal testgruppen utføre en mer avansert seiling. Dette vil kreve en dypere forståelse av API'et da de må opprette ressurser
-for konsepter de kanskje ikke har noen tidligere kunnskap om. 
+I del to skal testgruppen utføre en mer avansert seiling. Dette vil kreve en dypere forståelse av API'et da de må opprette ressurser
+for konsepter de kanskje ikke har noen tidligere kunnskap om. Mer spesifikt: frakt av gods.
 
-Fase to er mye lik når det gjelder hjelpemidler men de får også et klassediagram tilgjengelig. 
+I del to får de tilgang til dokumentasjon og et klassediagram.
 
-\subsection{Fase 3}
+\subsubsection{Oppgave - Frakt: Havn Konfigurasjon}
+
+Tilføy eller gjør endringer på havnene dere lagde for å støtte bevegelse av gods i havnen. \\ \\
+Her skal testgruppen opprette StorageArea og StorageColumn(s). De skal også opprette AGV'er.
+
+\subsubsection*{Hint}
+
+\begin{enumerate}
+    \item Havner har et område dedikert til lagring.
+    \item Lagringsområdet har også flere steder der gods er lagret.
+\end{enumerate}
+
+\subsubsection{Oppgave - Frakt: Kaiplass Konfigurasjon}
+
+Tilføy eller gjør endringer på kaiplassene til havnene for å støtte lossing av gods. \\ \\
+Her skal testgruppen legge til et vilkårlig antall kraner og et vilkårlig antall AGV'er.
+
+\subsubsection*{Hint}
+
+\begin{enumerate}
+    \item Lossing av gods håndteres av kraner.
+    \item AGV'er flytter godset fra kaiplassen til lagringskolonnene.
+\end{enumerate}
+
+\subsubsection{Oppgave - Frakt: Fraktskip}
+
+Opprett et skip og dets last. Lag seilingene som skal utføres.
+
+
+\subsection{Del 3}
 
 \section{Gjennomføring og Evaluering av Brukertesting}
+
+\section{Evaluering av tildelt gruppes API}
+
+JECH sitt rammeverk er en service-basert løsning. 
+
+
 
 \section{Implementasjon av Grafisk Grensesnitt}
 

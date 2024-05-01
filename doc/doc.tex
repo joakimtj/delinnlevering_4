@@ -20,8 +20,45 @@ The HARBAPI namespace contains classes and methods for managing sailing operatio
 \section*{Class}
 
 \subsection*{Properties}
-
+\begin{itemize}
+    \item SailingId (string): Gets or sets the identifier of the sailing.
+    \item DepartureTime (DateTime): Gets or sets the time when the sailing departs.
+    \item ArrivalTime (DateTime): Gets or sets the time when the sailing arrives.
+    \item HasArrived (bool): Indicates whether the sailing has arrived. Default is false.
+    \item HasDeparted (bool): Indicates whether the sailing has departed. Default is false.
+    \item Ship (Ship): The vessel associated with the sailing.
+    \item DestinationDock (Dock?): The destination dock of the sailing. If null, the sailing has no specified destination.
+\end{itemize}
 \subsection*{Constructor}
+\begin{itemize}
+    \item Sailing(string sailingId, DateTime departureTime, DateTime arrivalTime, Ship ship, Dock destinationDock): Initializes a new instance of the Sailing class.
+    \begin{itemize}
+        \item sailingId (string): The identifier of the sailing.
+        \item departureTime (DateTime): The scheduled departure time.
+        \item arrivalTime (DateTime): The scheduled arrival time.
+        \item ship (Ship): The vessel undertaking the sailing.
+        \item destinationDock (Dock): The destination dock for the sailing.
+        \item 
+    \end{itemize}
+\end{itemize}
 
-
+\subsection*{Methods}
+\begin{itemize}
+    \item GetShipId() : Fetches the identifier of the vessel associated with the sailing.
+    \begin{itemize}
+        \item Returns: string - The vessel's identifier or null if the Ship is null.
+    \end{itemize}
+    \item GetDestinationId() : Fetches the identifier of the destination dock.
+    \begin{itemize}
+        \item Returns: string - The dock's identifier or null if the DestinationDock is null.
+    \end{itemize}
+    \item SetDeparted(bool departed): Sets the departure status of the sailing.
+    \begin{itemize}
+        \item departed (bool): The departure status to set.
+    \end{itemize}
+    \item SetArrived(bool arrived): Sets the arrival status of the sailing.
+    \begin{itemize}
+        \item arrived (bool): The arrival status to set.
+    \end{itemize}
+\end{itemize}
 \end{document}

@@ -52,8 +52,7 @@ Den nye funksjonaliteten er som følger:
     \item Kjøre en enkel frakt simulering.
 \end{itemize}
 
-Brukertestingen vår er da hovedsakelig i to deler med en tredje om vi føler den er nødvendig for ytterligere informasjon om vi ser at det er store
-misforståelser og hull i de to tidligere delene.
+Brukertestingen vår er da hovedsakelig i to deler. Del 1 er mer fokusert på grunnleggende ting i API'en mens Del 2 er mer komplisert.
 
 \subsection{Del 1} 
 
@@ -175,12 +174,26 @@ Her skal testgruppen legge til et vilkårlig antall kraner og et vilkårlig anta
     \item AGV'er flytter godset fra kaiplassen til lagringskolonnene.
 \end{enumerate}
 
+\newpage
 \subsubsection{Oppgave - Frakt: Fraktskip}
 
-Opprett et skip og dets last. Lag seilingene som skal utføres.
+Opprett et skip og dets last. Lag seilingene som skal utføres. \\ \\
+Her skal testgruppen opprette fraktskip med last. Last (kontainere) er enten instansiert separat eller 
+laget generisk med hjelpemetoder. Dette er ment å teste hvor behjelpelige hjelpemetodene våre er og 
+de valg brukere av API'en muligens tar med henhold til egne styrker og tidligere erfaringer.
 
+Så skal de opprette seilinger som skal utføres. 
 
-\subsection{Del 3}
+\subsubsection*{Hint}
+
+\begin{enumerate}
+    \item Last kan også opprettes internt i fraktskip med hjelpemetoder.
+\end{enumerate}
+
+\subsubsection{Oppgave - Frakt: Simulering}
+
+Simuler seilngene dere lagde i forrige oppgave. \\ \\
+Dette er kun for å se om det fungerer som de har tenkt.
 
 \section{Gjennomføring og Evaluering av Brukertesting}
 
@@ -188,6 +201,7 @@ Opprett et skip og dets last. Lag seilingene som skal utføres.
 
 JECH sitt rammeverk er en service-basert løsning. 
 
+\section{Refleksjon over WPF Dokumentasjon}
 
 
 \section{Implementasjon av Grafisk Grensesnitt}

@@ -745,4 +745,43 @@ The \texttt{ILogger} interface outlines a standard approach for logging various 
         \end{itemize}
 \end{itemize}
 
+\subsection*{Class: ConsoleLogger}
+
+The \texttt{ConsoleLogger} class implements the \texttt{ILogger} interface, providing a straightforward mechanism for logging messages to the standard output console. It supports multiple logging levels, allowing for flexible control over the granularity of the log output.
+
+\subsubsection*{Properties}
+
+\begin{itemize}
+    \item \textbf{LogLevel} (\texttt{LogLevel}): Determines the current logging level of the \texttt{ConsoleLogger}. Only messages at this level or higher will be output to the console.
+\end{itemize}
+
+\subsubsection*{Methods}
+
+\begin{itemize}
+    \item \textbf{void LogInfo(string message)}: Logs informational messages. These are generally non-critical messages that provide visibility into the flow of the application.
+        \begin{itemize}
+            \item \textbf{message} (\texttt{string}): The information to log.
+        \end{itemize}
+
+    \item \textbf{void LogVerbose(string message)}: Logs detailed debug or trace information, useful for developing or diagnosing tricky issues within the application.
+        \begin{itemize}
+            \item \textbf{message} (\texttt{string}): Detailed debug or developmental information.
+        \end{itemize}
+
+    \item \textbf{void LogWarning(string message)}: Logs warning messages, which indicate a potential issue or something important to be aware of, but not necessarily causing an immediate problem.
+        \begin{itemize}
+            \item \textbf{message} (\texttt{string}): A warning message.
+        \end{itemize}
+
+    \item \textbf{void LogError(string message)}: Logs error messages, which are typically of high severity and indicate that something has gone wrong within the application.
+        \begin{itemize}
+            \item \textbf{message} (\texttt{string}): An error message.
+        \end{itemize}
+
+    \item \textbf{void LogFatal(string message)}: Logs fatal messages, which are of the highest severity and typically indicate a critical failure within the application.
+        \begin{itemize}
+            \item \textbf{message} (\texttt{string}): A message describing a severe failure.
+        \end{itemize}
+\end{itemize}
+
 \end{document}

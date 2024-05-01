@@ -216,7 +216,44 @@ er en enkel forklaring på hva det gjør men det kunne vært noe mer informasjon
 Men etter første metode for å håndtere disse eventsene var det intuivt hvordan resten av API'en fungerte. Det er et sammenhengende
 rammeverk uten `overraskelser'.
 
-\section{Refleksjon over WPF Dokumentasjon}
+\section{Implementasjon av grafisk grensesnitt}
+\includegraphics*[scale=0.6]{gui.png}
+
+Som krav til denne delinnleveringen skulle vi implementere et grafisk grensesnitt for 
+å kunne sette opp havner, skip, kaiplasser og seilinger. Det skulle også være mulighet til
+å kjøre simuleringer på seilingene, samt å kunne se en logg over hva som skjedde under simuleringen.
+Vi benyttet WPF for denne delen.
+
+Etter å ha lagt til de nødvendige objektene, kan en simulering kjøres ved å trykke på ``Start Simulation''-knappen.
+Output fra simuleringen vises i en \texttt{RichTextBox} nederst i grensesnittet. \footnote{Visse begrensninger medfølger.}
+
+\subsection{Bruk}
+Grensesnittet gjør det mulig å opprette havner, skip, kaiplasser og seilinger. Visse felt er påkrevd for å opprette objektene, 
+og det er lagt til validering for å hindre at brukeren oppretter objekter uten nødvendig informasjon. 
+Kaiplasser og seilinger krever at det er skip og havner tilgjengelig, så det er lagt til stopper for å hindre at brukeren oppretter
+disse objektene uten at det er skip eller havner tilgjengelig. Dette gjøres kun i koden til grensesnittet, og ikke i APIen.
+
+\subsection{Restriksjoner}
+Oppgaven var klar på at om rammeverket var manglende i visse områder, skulle vi jobbe rundt det ved å 
+heller gjøre endringer i grensesnittet. Dette har vi delvis gjort i form av validering av input. Likevel måtte 
+vi ty til noen kreative løsninger for å få alt til å fungere.
+
+En simulering krever en liste over havner. Dette er fordi simuleringen kjører alle seilingene som er 
+registrert for hver havn. Vi var usikre på hvordan vi skulle implementere dette, og la derfor til
+en ``master harbor'' som fikk tilføyd alle seilingene. Dette skjer bak kulissene, og oppleves ideelt sett
+ikke av brukeren. Vi er klare over denne restrisjonen, og ønsker å forbedre dette i fremtidige iterasjoner.
+Det hadde vært mulig å gjøre en fiks for dette allerede nå, men vi valgte å fokusere på grensenittet og la
+eventuelle fikser til APIen vente til senere.
+
+Kraner, AGVer og lagringsområder i havnene er ikke implementert i det grafiske grensesnittet. Vi tolket at disse
+ikke var nødvendige for å kunne kjøre en simulering, og valgte derfor å la de frafalle i denne omgang.
+
+Output fra simuleringen vises i en \texttt{RichTextBox}, men på grunn av måten APIen er implementert på, 
+er det ikke mulig å få en kontinuerlig oppdatering av denne. I tillegg er det ikke mulig å stoppe en simulering,
+og outputen fra simuleringen har ingen timestamp slik som den vil ha i en konsollimplementasjon. Dette er fordi eventene
+som vi abonnerer på ikke gir like fullstendig informasjon som de som blir skrevet til konsollen i \texttt{ConsoleLogger} 
+klassen. Dette hadde nok en gang vært mulig å fikse, men vi lot det være for denne iterasjonen.
+\section{Refleksjon over WPF dokumentasjon}
 
 
 \section{Diskusjon om Regler fra Boken}

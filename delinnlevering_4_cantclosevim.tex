@@ -195,15 +195,31 @@ Så skal de opprette seilinger som skal utføres.
 Simuler seilngene dere lagde i forrige oppgave. \\ \\
 Dette er kun for å se om det fungerer som de har tenkt.
 
-\section{Gjennomføring og Evaluering av Brukertesting}
+\section{Gjennomføring og Evaluering av Brukertest}
+
+
 
 \section{Evaluering av tildelt gruppes API}
 
-JECH sitt rammeverk er en service-basert løsning. 
+JECH sitt rammeverk er en service-basert løsning for varehus-administrering.
+
+I forhold til vårt eget API er deres mye mer event-basert. De fleste hendelser i API'et
+`raiser' en event, med dette kan vi selv velge hva som skal gjøres med disse hendelsene. I vårt tilfelle 
+skrev vi ut til konsollen informasjon om hva som skjedde.
+
+Med at rammeverket er service-basert var det litt vrient å forstå sammenhengen. Det er en del servicer som må
+instansieres og som ikke er helt entydig med første øyekast. Dette kan være konsekvens av manglende erfaring med slike service-baserte 
+systemer men vi mener også at det kunne vært noe mer beskrivende XML-kommentarer. For eksempel, `Klasse for håndtering av Palle-objekter'
+er en enkel forklaring på hva det gjør men det kunne vært noe mer informasjon om det faktiske bruksområdet. 
+
+Å `subscribe' og `raise' events med kode er som nevnt litt tvetydig i starten når det er så mange forskjellige events.
+Men etter første metode for å håndtere disse eventsene var det intuivt hvordan resten av API'en fungerte. Det er et sammenhengende
+rammeverk uten `overraskelser'.
 
 \section{Refleksjon over WPF Dokumentasjon}
 
 
-\section{Implementasjon av Grafisk Grensesnitt}
+\section{Diskusjon om Regler fra Boken}
+
 
 \end{document}

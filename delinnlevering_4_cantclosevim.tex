@@ -197,7 +197,17 @@ Dette er kun for å se om det fungerer som de har tenkt.
 
 \section{Gjennomføring og Evaluering av Brukertest}
 
-
+Brukertesten viste følgende svakheter i API designet:
+\begin{itemize}
+    \item Det er ikke intuitivt at seilinger lagres i en havn.
+    \item Det er derfor heller ikke intuitivt at en `passer' in havnene som skal simuleres inn som argument til simulerings-metoden.
+    \item For at et skip skal kunne seile må det være forankret til en kaiplass. Det er ingenting i API'et som gjør dette klart for bruker utenom en vag feilmelding.
+    \begin{itemize}
+        \item Dette var noe vi trodde vi hadde endret/løst tidligere. Men her ser vi at hva enn vi gjorde tydeligvis ikke fikset det.
+    \end{itemize}
+    \item Flere events burde legges til. 
+    \item Måten frakt av gods innenfor havner fungerer er for `opaque' og gir ikke bruker evnen til å feks bestemme hvor frakt skal eventuelt gå.
+\end{itemize}
 
 \section{Evaluering av tildelt gruppes API}
 
@@ -258,5 +268,6 @@ klassen. Dette hadde nok en gang vært mulig å fikse, men vi lot det være for 
 
 \section{Diskusjon om Regler fra Boken}
 
+Reglene i boken er 
 
 \end{document}

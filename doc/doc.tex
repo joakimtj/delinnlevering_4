@@ -13,11 +13,11 @@
 
 \maketitle
 
-\section{Namespace: HARBAPI}
+\section*{Namespace: HARBAPI}
 
 The HARBAPI namespace contains classes and methods for managing sailing operations in a harbor management system.
 
-\section*{Class}
+\section*{Class - Sailing}
 
 \subsection*{Properties}
 \begin{itemize}
@@ -38,7 +38,6 @@ The HARBAPI namespace contains classes and methods for managing sailing operatio
         \item arrivalTime (DateTime): The scheduled arrival time.
         \item ship (Ship): The vessel undertaking the sailing.
         \item destinationDock (Dock): The destination dock for the sailing.
-        \item 
     \end{itemize}
 \end{itemize}
 
@@ -61,4 +60,689 @@ The HARBAPI namespace contains classes and methods for managing sailing operatio
         \item arrived (bool): The arrival status to set.
     \end{itemize}
 \end{itemize}
+
+\newpage
+\section*{Abstract Class - Ship}
+\subsection*{Properties}
+    \begin{itemize}
+        \item VehicleId (string): The ID of the AGV. {get;}
+        \item CurrentLocation (IHarborStructure?): Its current `physical' location in the harbor. { get; set; }
+        \item LastLocation (IHarborStructure?): Its last `physical' location in the harbor. { get; set; }
+        \item Container (Container?): The container the AGV is carrying.
+    \end{itemize}
+\subsection*{Constructor}
+\begin{itemize}
+    \item Ship(string shipId): Init an instance of a Ship.
+    \begin{itemize}
+        \item VehicleId (string): The ID of the AGV.
+    \end{itemize}
+\end{itemize}
+
+\subsection*{Methods}
+\begin{itemize}
+    \item UpdateLocation(Dock? newLocation): Updates the location of the Ship.
+    \begin{itemize}
+        \item newLocation: The new location for the Ship.
+    \end{itemize}
+\end{itemize}
+
+\section*{Class - CommercialShip : Ship}
+\subsection*{Constructor}
+\begin{itemize}
+    \item CommercialShip(string shipId): Init an instance of a Ship.
+    \begin{itemize}
+        \item shipId (string): The ID of the Ship.
+    \end{itemize}
+\end{itemize}
+
+\section*{Class - FreightShip : Ship}
+\subsection*{Properties}
+    \begin{itemize}
+        \item Containers (List<Container>): The containers the ship is carrying.
+    \end{itemize}
+\subsection*{Constructor}
+\begin{itemize}
+    \item FreightShip(string shipId): Init an instance of a Ship.
+    \begin{itemize}
+        \item shipId (string): The ID of the Ship.
+    \end{itemize}
+\end{itemize}
+
+\subsection*{Methods}
+\begin{itemize}
+    \item Container GetContainer(string containerId)
+    \begin{itemize}
+        \item Returns: A container matching the ID.
+    \end{itemize}
+    \item List<Container> GetContainers(): Get the containers on the ship.
+    \begin{itemize}
+        \item Returns: The list of containers.
+    \end{itemize}
+    \item AddContainer(Container container): Add a container to the ship.
+    \begin{itemize}
+        \item container: The container to add to the ship.
+    \end{itemize}
+    \item AddNumberOfGenericLargeContainers(int amount): Adds a specified amount of generic large containers to the ship.
+    \item AddNumberOfGenericSmallContainers(int amount): Adds a specified amount of generic small containers to the ship.
+    \item RemoveContainer(Container container): Remove a specified container.
+    \item Container PopContainer(): Remove and return the top container.
+\end{itemize}
+
+\newpage
+\section*{Class - AGV implements IVehicle}
+\subsection*{Properties}
+    \begin{itemize}
+        \item VehicleId (string): The ID of the AGV. {get;}
+        \item CurrentLocation (IHarborStructure?): Its current `physical' location in the harbor. { get; set; }
+        \item LastLocation (IHarborStructure?): Its last `physical' location in the harbor. { get; set; }
+        \item Container (Container?): The container the AGV is carrying.
+    \end{itemize}
+\subsection*{Constructor}
+\begin{itemize}
+    \item AGV(string agvId, IHarborStructure currentLocation, IHarborStructure? lastLocation): Init an instance of an AGV.
+    \begin{itemize}
+        \item VehicleId (string): The ID of the AGV.
+        \item CurrentLocation (IHarborStructure?): Its current `physical' location in the harbor.
+        \item LastLocation (IHarborStructure?): Its last `physical' location in the harbor. 
+    \end{itemize}
+\end{itemize}
+
+\subsection*{Methods}
+\begin{itemize}
+    \item LoadContainer(Container container): Load a container onto the AGV.
+    \begin{itemize}
+        \item The container to be loaded onto the AGV.
+    \end{itemize}
+    \item Container PopContainer(): Remove and return container.
+    \begin{itemize}
+        \item Returns: Container: The container that was removed.
+    \end{itemize}
+    \item UpdateLocation(IHarborStructure? newLocation): Updates the location of the AGV.
+    \begin{itemize}
+        \item newLocation: The new location for the AGV.
+    \end{itemize}
+\end{itemize}
+
+
+\newpage
+\section*{Class - Container}
+
+Contains an enum ContainerSize.
+Small = 0, Large = 1,.
+
+\subsection*{Properties}
+    \begin{itemize}
+        \item ContainerId (string): The ID of the Container. { get; set; }
+        \item ContainerSize (ContainerSize) { get; set; }
+        \item LastLocation (IHarborStructure?): Its last `physical' location in the harbor. { get; set; }
+        \item Container (Container?): The container the AGV is carrying.
+    \end{itemize}
+\subsection*{Constructor}
+\begin{itemize}
+    \item Container(string containerId, ContainerSize containerSize): Init container.
+    \begin{itemize}
+        \item ContainerId (string): The ID of the Container.
+        \item ContainerSize (ContainerSize): Size of the container.
+    \end{itemize}
+\end{itemize}
+
+\newpage
+\section*{Class - Crane}
+
+The \texttt{Crane} class represents a crane at the harbor, used for transporting containers between ships, trucks, AGVs (Automated Guided Vehicles), and storage areas.
+
+\subsection*{Properties}
+
+\begin{itemize}
+    \item \textbf{CraneId} (\texttt{string}): The unique identifier of the crane. It is read-only.
+    \item \textbf{Container} (\texttt{Container?}): The container currently held by the crane, if any.
+\end{itemize}
+
+\subsection*{Constructor}
+
+\textbf{Crane(string craneId)}
+
+Initializes a new instance of the \texttt{Crane} class with the specified identifier.
+
+\begin{itemize}
+    \item \textbf{craneId} (\texttt{string}): The identifier for the crane.
+\end{itemize}
+
+\subsection*{Methods}
+
+\textbf{void SetContainer(Container container)}
+
+Sets the container that the crane is holding.
+
+\begin{itemize}
+    \item \textbf{container} (\texttt{Container}): The container to be held by the crane.
+\end{itemize}
+
+\textbf{bool IsAvailable()}
+
+Checks if the crane is available to pick up or move another container.
+
+\textbf{void MoveContainerToFreightTruck(Truck freightTruck)}
+
+Moves the container to a specified freight truck.
+
+\begin{itemize}
+    \item \textbf{freightTruck} (\texttt{Truck}): The freight truck to which the container will be moved.
+\end{itemize}
+
+\textbf{void MoveContainerFromFreightTruck(Truck freightTruck)}
+
+Retrieves a container from a specified freight truck.
+
+\begin{itemize}
+    \item \textbf{freightTruck} (\texttt{Truck}): The freight truck from which the container will be retrieved.
+\end{itemize}
+
+\textbf{void MoveContainerToAGV(AGV automatedGuidedVehicle)}
+
+Transfers the container to an Automated Guided Vehicle.
+
+\begin{itemize}
+    \item \textbf{automatedGuidedVehicle} (\texttt{AGV}): The AGV to which the container will be moved.
+\end{itemize}
+
+\textbf{void MoveContainerFromAGV(AGV automatedGuidedVehicle)}
+
+Retrieves a container from an AGV.
+
+\begin{itemize}
+    \item \textbf{automatedGuidedVehicle} (\texttt{AGV}): The AGV from which the container will be retrieved.
+\end{itemize}
+
+\textbf{void MoveContainerToShip(FreightShip freightShip)}
+
+Places the container onto a freight ship.
+
+\begin{itemize}
+    \item \textbf{freightShip} (\texttt{FreightShip}): The ship to which the container will be moved.
+\end{itemize}
+
+\textbf{void MoveContainerFromShip(FreightShip freightShip)}
+
+Retrieves a container from a freight ship.
+
+\begin{itemize}
+    \item \textbf{freightShip} (\texttt{FreightShip}): The ship from which the container will be retrieved.
+\end{itemize}
+
+\textbf{void MoveContainerToStorageColumn(StorageColumn storageColumn)}
+
+Moves the container to a storage column within the harbor.
+
+\begin{itemize}
+    \item \textbf{storageColumn} (\texttt{StorageColumn}): The storage column to which the container will be moved.
+\end{itemize}
+
+\newpage
+\section*{Class - Dock}
+
+The \texttt{Dock} class represents a dock structure within a harbor, designed to accommodate vessels and manage the loading and unloading of containers using cranes and Automated Guided Vehicles (AGVs).
+
+\subsection*{Properties}
+
+\begin{itemize}
+    \item \textbf{StructureId} (\texttt{string}): The unique identifier for the dock.
+    \item \textbf{DockedShip} (\texttt{Ship?}): The ship currently docked at this location, if any.
+    \item \textbf{CargoCranes} (\texttt{List<Crane>}): A list of cargo cranes available at the dock for handling containers.
+    \item \textbf{AGVs} (\texttt{List<AGV>}): A list of AGVs present at the dock for moving containers to and from storage areas.
+    \item \textbf{Harbor} (\texttt{Harbor?}): The harbor that the dock is part of, if applicable.
+\end{itemize}
+
+\subsection*{Constructors}
+
+\textbf{Dock(string dockId)}
+
+Initializes a new instance of the \texttt{Dock} class with the specified identifier.
+
+\begin{itemize}
+    \item \textbf{dockId} (\texttt{string}): The identifier for the dock.
+\end{itemize}
+
+\textbf{Dock(string dockId, Harbor harbor)}
+
+Initializes a new instance of the \texttt{Dock} class with the specified identifier and associated harbor.
+
+\begin{itemize}
+    \item \textbf{dockId} (\texttt{string}): The identifier for the dock.
+    \item \textbf{harbor} (\texttt{Harbor}): The harbor associated with the dock.
+\end{itemize}
+
+\textbf{Dock(string dockId, List<Crane> cargoCranes, List<AGV> automatedGuidedVehicles)}
+
+Initializes a new dock with specified cargo cranes and AGVs for simulation purposes.
+
+\begin{itemize}
+    \item \textbf{dockId} (\texttt{string}): The identifier for the dock.
+    \item \textbf{cargoCranes} (\texttt{List<Crane>}): List of cargo cranes.
+    \item \textbf{automatedGuidedVehicles} (\texttt{List<AGV>}): List of AGVs.
+\end{itemize}
+
+\subsection*{Methods}
+
+\textbf{bool CheckAGVAvailability()}
+
+Checks the availability of AGVs at the dock.
+
+\textbf{void DockShip(Ship ship)}
+
+Docks a ship at the dock.
+
+\begin{itemize}
+    \item \textbf{ship} (\texttt{Ship}): The ship to dock.
+\end{itemize}
+
+\textbf{void DepartShip()}
+
+Departs the currently docked ship from the dock.
+
+\textbf{void CreateGenericCargoCranes(int numberOfCranes)}
+
+Creates and adds a specified number of cargo cranes to the dock.
+
+\begin{itemize}
+    \item \textbf{numberOfCranes} (\texttt{int}): The number of cargo cranes to create.
+\end{itemize}
+
+\textbf{void CreateGenericAGVs(int numberOfAGVs)}
+
+Creates and adds a specified number of AGVs to the dock.
+
+\begin{itemize}
+    \item \textbf{numberOfAGVs} (\texttt{int}): The number of AGVs to create.
+\end{itemize}
+
+\textbf{Crane FindAvailableCrane()}
+
+Finds an available crane at the dock.
+
+\section*{Class: Harbor}
+
+The \texttt{Harbor} class represents a harbor entity that contains multiple docks and a storage area. It serves as a central point for managing docks, storage facilities, and the simulation of sailings.
+
+\subsection*{Properties}
+
+\begin{itemize}
+    \item \textbf{HarborId} (\texttt{string}): The identifier for the harbor.
+    \item \textbf{Docks} (\texttt{List<Dock>}): A list of docks within the harbor.
+    \item \textbf{StorageArea} (\texttt{StorageArea?}): The storage area associated with the harbor, if any.
+    \item \textbf{Sailings} (\texttt{List<Sailing>}): A list of sailings to be simulated within the harbor.
+\end{itemize}
+
+\subsection*{Constructors}
+
+\textbf{Harbor(string harborId)}
+
+Initializes a new instance of the \texttt{Harbor} class with the specified harbor identifier.
+
+\begin{itemize}
+    \item \textbf{harborId} (\texttt{string}): The identifier for the harbor.
+\end{itemize}
+
+\textbf{Harbor(string harborId, StorageArea storageArea)}
+
+Initializes a new instance of the \texttt{Harbor} class with the specified identifier and an associated storage area.
+
+\begin{itemize}
+    \item \textbf{harborId} (\texttt{string}): The identifier for the harbor.
+    \item \textbf{storageArea} (\texttt{StorageArea}): The storage area to be associated with the harbor.
+\end{itemize}
+
+\subsection*{Methods}
+
+\textbf{void CreateDocks(int numberOfDocks)}
+
+Creates a specified number of generic docks within the harbor.
+
+\begin{itemize}
+    \item \textbf{numberOfDocks} (\texttt{int}): The number of docks to create.
+\end{itemize}
+
+\textbf{void CreateDocksWithCranes(int numberOfDocks, int numberOfCranes)}
+
+Creates a specified number of docks, each equipped with a specified number of cranes.
+
+\begin{itemize}
+    \item \textbf{numberOfDocks} (\texttt{int}): The number of docks to create.
+    \item \textbf{numberOfCranes} (\texttt{int}): The number of cranes to add to each dock.
+\end{itemize}
+
+\textbf{void AddDock(Dock dock)}
+
+Adds a dock to the harbor.
+
+\begin{itemize}
+    \item \textbf{dock} (\texttt{Dock}): The dock to be added.
+\end{itemize}
+
+\textbf{void RemoveDock(Dock dock)}
+
+Removes a dock from the harbor.
+
+\begin{itemize}
+    \item \textbf{dock} (\texttt{Dock}): The dock to be removed.
+\end{itemize}
+
+\textbf{Dock GetDock(string dockId)}
+
+Fetches a dock from the harbor by its identifier.
+
+\begin{itemize}
+    \item \textbf{dockId} (\texttt{string}): The identifier of the dock to fetch.
+\end{itemize}
+
+\textbf{void AddSailing(Sailing sailing)}
+
+Adds a sailing to the harbor's simulation.
+
+\begin{itemize}
+    \item \textbf{sailing} (\texttt{Sailing}): The sailing to add.
+\end{itemize}
+
+\textbf{void RemoveSailing(Sailing sailing)}
+
+Removes a sailing from the harbor's simulation.
+
+\begin{itemize}
+    \item \textbf{sailing} (\texttt{Sailing}): The sailing to remove.
+\end{itemize}
+
+\textbf{\texttt{List<Sailing>}GetSailings()}
+
+Fetches the list of all current sailings within the harbor.
+
+\textbf{void ClearSailings()}
+
+Empties the list of sailings in the harbor's simulation.
+
+\textbf{void AddSailings(\texttt{List<Sailing>} sailings)}
+
+Adds a list of sailings to the harbor's simulation.
+
+\begin{itemize}
+    \item \textbf{sailings} (\texttt{List<Sailing>}): The list of sailings to add.
+\end{itemize}
+
+\newpage
+
+\section*{Class - StorageArea}
+
+\textbf{Namespace}: \texttt{HARBAPI.Models}
+
+\textbf{Description}: 
+The \texttt{StorageArea} class represents a dedicated area within a harbor for storing containers. It consists of multiple \texttt{StorageColumns} and is equipped with Automated Guided Vehicles (AGVs) to facilitate the movement of containers between ships and storage locations.
+
+\subsection*{Properties}
+
+\begin{itemize}
+    \item \textbf{StructureId} (\texttt{string}): The identifier for the storage area. This ID is unique within the context of the harbor.
+    \item \textbf{StorageColumns} (\texttt{List<StorageColumn>}): A list of \texttt{StorageColumn} instances within the storage area.
+    \item \textbf{AGVs} (\texttt{List<AGV>}): A list of AGVs present in the storage area, used for transporting containers to and from docks.
+\end{itemize}
+
+\subsection*{Constructor}
+
+\textbf{StorageArea(string areaId)}
+
+Initializes a new instance of the \texttt{StorageArea} class with a specific identifier.
+
+\begin{itemize}
+    \item \textbf{areaId} (\texttt{string}): The identifier for the storage area.
+\end{itemize}
+
+\subsection*{Methods}
+
+\textbf{void CreateStorageColumns(int numberOfColumns)}
+
+Creates a specified number of storage columns within the storage area, each with a default capacity configuration.
+
+\begin{itemize}
+    \item \textbf{numberOfColumns} (\texttt{int}): The number of storage columns to create.
+\end{itemize}
+
+\textbf{void CreateStorageColumns(int numberOfColumns, int maxLengthCapacity, int maxHeightCapacity)}
+
+Creates a specified number of storage columns with configurable capacity dimensions.
+
+\begin{itemize}
+    \item \textbf{numberOfColumns} (\texttt{int}): The number of storage columns to create.
+    \item \textbf{maxLengthCapacity} (\texttt{int}): The maximum length capacity of each column.
+    \item \textbf{maxHeightCapacity} (\texttt{int}): The maximum height capacity of each column.
+\end{itemize}
+
+\textbf{bool CheckAGVAvailability()}
+
+Checks whether there are any AGVs currently available in the storage area.
+
+\newpage
+\section*{Class - StorageColumn}
+
+The \texttt{StorageColumn} class represents a storage unit within a storage area of a harbor, specifically designed to hold containers in a stacked arrangement. Each column is equipped with a crane for handling the containers.
+
+\subsection*{Properties}
+
+\begin{itemize}
+    \item \textbf{ColumnId} (\texttt{string}): The unique identifier for the storage column.
+    \item \textbf{ContainerStack} (\texttt{List<List<Container>>}): A stack of containers organized in lists to simulate layers within the column.
+    \item \textbf{Crane} (\texttt{Crane}): The crane associated with the storage column, used for loading and unloading containers.
+    \item \textbf{MaxLengthCapacity} (\texttt{int}): The maximum length capacity of the column, defining how many containers can be stored in length.
+    \item \textbf{MaxHeightCapacity} (\texttt{int}): The maximum height capacity of the column, defining the stack limit of containers.
+\end{itemize}
+
+\subsection*{Constructor}
+
+\textbf{StorageColumn(string columnId, Crane crane, int maxLengthCapacity, int maxHeightCapacity)}
+
+Initializes a new instance of the \texttt{StorageColumn} class with specified characteristics.
+
+\begin{itemize}
+    \item \textbf{columnId} (\texttt{string}): The identifier for the storage column.
+    \item \textbf{crane} (\texttt{Crane}): The crane assigned to this column for handling containers.
+    \item \textbf{maxLengthCapacity} (\texttt{int}): The maximum number of containers that can be stored in length within the column.
+    \item \textbf{maxHeightCapacity} (\texttt{int}): The maximum number of containers that can be stacked vertically in the column.
+\end{itemize}
+
+\subsection*{Methods}
+
+\textbf{void AddContainer(Container container)}
+
+Adds a container to the storage column. This method assumes that there is always room to add at least one container at the top of the existing stack.
+
+\begin{itemize}
+    \item \textbf{container} (\texttt{Container}): The container to be added to the column.
+\end{itemize}
+
+\textbf{void PrintColumnToConsole()}
+
+Prints the details of all containers within the column to the console, layer by layer.
+
+\newpage
+\section*{Class - Transporting\textlangle{}TVehicle, THarborStructure\textrangle{}}
+
+The \texttt{Transporting\textlangle{}TVehicle, THarborStructure\textrangle{}} class represents a transport operation within the harbor simulation, utilizing generic types to allow for flexibility in vehicle and destination types. It encapsulates all details of a single transportation task from start to finish.
+
+\subsection*{Type Parameters}
+
+\begin{itemize}
+    \item \textbf{TVehicle}: The type of vehicle used in the transport. Must implement the \texttt{IVehicle} interface.
+    \item \textbf{THarborStructure}: The type of destination for the transport. Must implement the \texttt{IHarborStructure} interface.
+\end{itemize}
+
+\subsection*{Properties}
+
+\begin{itemize}
+    \item \textbf{TransportId} (\texttt{string}): The unique identifier for the transport operation.
+    \item \textbf{StartTime} (\texttt{DateTime}): The scheduled start time of the transportation.
+    \item \textbf{EndTime} (\texttt{DateTime}): The scheduled end time of the transportation.
+    \item \textbf{Vehicle} (\texttt{TVehicle}): The vehicle being used for the transportation.
+    \item \textbf{Destination} (\texttt{THarborStructure}): The intended destination of the transportation.
+    \item \textbf{HasStarted} (\texttt{bool}): Indicates whether the transportation has started.
+    \item \textbf{HasCompleted} (\texttt{bool}): Indicates whether the transportation has been completed.
+\end{itemize}
+
+\subsection*{Constructor}
+
+\textbf{Transporting(string transportId, TVehicle vehicle, DateTime startTime, DateTime endTime, THarborStructure destination)}
+
+Initializes a new instance of the \texttt{Transporting} class with specified details about the transport.
+
+\begin{itemize}
+    \item \textbf{transportId} (\texttt{string}): The identifier for the transport.
+    \item \textbf{vehicle} (\texttt{TVehicle}): The vehicle to be used for the transport.
+    \item \textbf{startTime} (\texttt{DateTime}): The time when the transport is scheduled to start.
+    \item \textbf{endTime} (\texttt{DateTime}): The time when the transport is scheduled to end.
+    \item \textbf{destination} (\texttt{THarborStructure}): The destination for the transport.
+\end{itemize}
+
+\newpage
+\section*{Class - HarborSimulator}
+
+The \texttt{HarborSimulator} class is designed to simulate the operations of sailings across one or more harbors. It includes facilities to log events, handle time steps, and invoke events related to ship movements.
+
+\subsection*{Properties}
+
+\begin{itemize}
+    \item \textbf{TimeStep} (\texttt{int}): The time-step for the simulation in minutes, dictating how time progresses within the simulation.
+    \item \textbf{\_logger} (\texttt{ILogger}): The logger used for recording simulation messages and events.
+\end{itemize}
+
+\subsection*{Events}
+
+\begin{itemize}
+    \item \textbf{ShipDeparted}: Triggered when a ship departs.
+    \item \textbf{ShipArrived}: Triggered when a ship arrives.
+    \item \textbf{ShipDelayed}: Triggered when a ship's journey is delayed.
+    \item \textbf{ShipLostAtSea}: Triggered when a ship is lost at sea, presumably due to errors or exceptions in simulation parameters.
+\end{itemize}
+
+\subsection*{Constructor}
+
+\textbf{HarborSimulator(ILogger logger)}
+
+Initializes a new instance of the \texttt{HarborSimulator} with a logger for event recording.
+
+\begin{itemize}
+    \item \textbf{logger} (\texttt{ILogger}): The logger for the simulator.
+\end{itemize}
+
+\subsection*{Methods}
+
+\textbf{void SimulateHarbors(DateTime startTime, DateTime endTime, List<Harbor> harbors)}
+
+Simulates the operations of multiple harbors between a defined start and end time.
+
+\begin{itemize}
+    \item \textbf{startTime} (\texttt{DateTime}): The start time of the simulation.
+    \item \textbf{endTime} (\texttt{DateTime}): The end time of the simulation.
+    \item \textbf{harbors} (\texttt{List<Harbor>}): The list of harbors involved in the simulation.
+\end{itemize}
+
+\textbf{void SetTimeStep(int timeStep)}
+
+Sets the time-step for the simulation.
+
+\begin{itemize}
+    \item \textbf{timeStep} (\texttt{int}): The time-step in minutes.
+\end{itemize}
+
+\textbf{int GetTimeStep()}
+
+Returns the current time-step used in the simulation. \\ \\
+\textbf{protected virtual void \\ OnShipDeparted(SailingEventArgs e) \\ OnShipArrived(SailingEventArgs e) \\ OnShipDelayed(SailingEventArgs e) \\ OnShipLostAtSea(SailingEventArgs e)}
+
+Protected methods to invoke the respective events.
+
+\newpage
+\section*{Class - SailingEventArgs}
+
+The \texttt{SailingEventArgs} class extends the standard \texttt{EventArgs} to provide specific information for events related to sailing activities, such as departures, arrivals, delays, and other notable occurrences within the harbor simulator.
+
+\subsection*{Properties}
+
+\begin{itemize}
+    \item \textbf{SailingId} (\texttt{string}): The unique identifier for the sailing associated with the event.
+    \item \textbf{Ship} (\texttt{Ship}): The ship involved in the event, providing context such as which ship is departing, arriving, or involved in an incident.
+    \item \textbf{Message} (\texttt{string}): A message describing the event or providing additional details about the state or outcome of the sailing operation.
+\end{itemize}
+
+\subsection*{Constructor}
+
+\textbf{SailingEventArgs(string sailingId, Ship ship, string message)}
+
+Constructs a new instance of the \texttt{SailingEventArgs} class, initializing it with specific details relevant to a sailing event.
+
+\begin{itemize}
+    \item \textbf{sailingId} (\texttt{string}): The identifier of the sailing.
+    \item \textbf{ship} (\texttt{Ship}): The ship involved in the event.
+    \item \textbf{message} (\texttt{string}): A descriptive message associated with the event.
+\end{itemize}
+
+\newpage
+\section*{Interface - IVehicle}
+
+The \texttt{IVehicle} interface defines essential properties for vehicles operating within the harbor. It ensures that all vehicle types adhere to a standard structure, facilitating consistent handling across the simulation and management systems.
+
+\subsection*{Properties}
+
+\begin{itemize}
+    \item \textbf{VehicleId} (\texttt{string}): The unique identifier for the vehicle. This ID is crucial for tracking and managing vehicle-specific operations within the harbor.
+    \item \textbf{CurrentLocation} (\texttt{IHarborStructure?}): The current location of the vehicle within the harbor. This property may be null if the vehicle is not currently stationed at a specific harbor structure.
+    \item \textbf{LastLocation} (\texttt{IHarborStructure?}): The last known location of the vehicle. This information helps in tracking the movements and operations of the vehicle over time.
+\end{itemize}
+
+\newpage
+\section*{Interface: IHarborStructure}
+
+The \texttt{IHarborStructure} interface defines the essential characteristics and functionalities of physical structures within a harbor. It ensures that all structural elements of the harbor provide a consistent interface for managing interactions with vehicles, particularly Automated Guided Vehicles (AGVs).
+
+\subsection*{Properties}
+
+\begin{itemize}
+    \item \textbf{StructureId} (\texttt{string}): The unique identifier for the harbor structure. This ID is essential for tracking and referencing different structures within the harbor.
+\end{itemize}
+
+\subsection*{Methods}
+
+\begin{itemize}
+    \item \textbf{bool CheckAGVAvailability()}: Checks whether there are available AGVs at the structure. This method is crucial for coordinating the movement and operation of AGVs within the harbor, ensuring efficient container transport and handling.
+\end{itemize}
+
+\newpage
+\subsection*{Interface: ILogger}
+
+The \texttt{ILogger} interface outlines a standard approach for logging various levels of information within the system. It provides methods for logging messages across different severity levels, aiding in the tracking of operational flow and identifying issues.
+
+\subsubsection*{Methods}
+
+\begin{itemize}
+    \item \textbf{void LogInfo(string message)}: Logs an informational message, typically describing the general events of the application, such as operational state changes or successful completions of operations.
+        \begin{itemize}
+            \item \textbf{message} (\texttt{string}): The content of the info message to be logged.
+        \end{itemize}
+
+    \item \textbf{void LogVerbose(string message)}: Logs detailed debug information, useful during development and debugging to understand the application's behavior deeply.
+        \begin{itemize}
+            \item \textbf{message} (\texttt{string}): The content of the verbose message to be logged.
+        \end{itemize}
+
+    \item \textbf{void LogWarning(string message)}: Logs a warning message, indicating a potential issue that does not stop the system's operation but should be addressed or monitored.
+        \begin{itemize}
+            \item \textbf{message} (\texttt{string}): The content of the warning message to be logged.
+        \end{itemize}
+
+    \item \textbf{void LogError(string message)}: Logs an error message, indicating significant problems that have occurred, which might affect the operation or result in a failure.
+        \begin{itemize}
+            \item \textbf{message} (\texttt{string}): The content of the error message to be logged.
+        \end{itemize}
+
+    \item \textbf{void LogFatal(string message)}: Logs a fatal message, indicating critical errors that result in the system's termination or a major failure.
+        \begin{itemize}
+            \item \textbf{message} (\texttt{string}): The content of the fatal message to be logged.
+        \end{itemize}
+\end{itemize}
+
 \end{document}

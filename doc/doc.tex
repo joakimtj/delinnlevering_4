@@ -784,4 +784,64 @@ The \texttt{ConsoleLogger} class implements the \texttt{ILogger} interface, prov
         \end{itemize}
 \end{itemize}
 
+\newpage
+\subsection*{Class - PersistingConsoleLogger}
+
+The \texttt{PersistingConsoleLogger} class extends the basic logging functionality by not only sending log messages to the console but also storing them in an internal list. This allows for later retrieval of log messages, which is particularly useful for debugging and testing scenarios where log analysis is necessary after the events have occurred.
+
+\subsubsection*{Properties}
+
+\begin{itemize}
+    \item \textbf{LogLevel} (\texttt{LogLevel}): Controls the level of log output. Messages below the set level are neither printed to the console nor stored.
+    \item \textbf{Messages} (\texttt{List<string>}): Holds all log messages that have been outputted, providing a history of log entries that can be accessed programmatically.
+\end{itemize}
+
+\subsubsection*{Methods}
+
+\begin{itemize}
+    \item \textbf{void LogInfo(string message)}: Logs informational messages that describe non-critical system behavior.
+        \begin{itemize}
+            \item \textbf{message} (\texttt{string}): The information to log.
+        \end{itemize}
+
+    \item \textbf{void LogVerbose(string message)}: Logs detailed information useful for debugging.
+        \begin{itemize}
+            \item \textbf{message} (\texttt{string}): Detailed debug information.
+        \end{itemize}
+
+    \item \textbf{void LogWarning(string message)}: Logs warnings which are not critical but could potentially cause issues.
+        \begin{itemize}
+            \item \textbf{message} (\texttt{string}): A warning message.
+        \end{itemize}
+
+    \item \textbf{void LogError(string message)}: Logs serious errors which may hinder system operations.
+        \begin{itemize}
+            \item \textbf{message} (\texttt{string}): An error message.
+        \end{itemize}
+
+    \item \textbf{void LogFatal(string message)}: Logs critical issues that may cause system shutdown or severe malfunction.
+        \begin{itemize}
+            \item \textbf{message} (\texttt{string}): A fatal error message.
+        \end{itemize}
+
+    \item \textbf{List<String> GetMessages()}: Retrieves all logged messages.
+        \begin{itemize}
+            \item \textbf{return} (\texttt{List<String>}): A list containing all messages logged by the logger.
+        \end{itemize}
+\end{itemize}
+
+\newpage
+\subsection*{Enum: LogLevel}
+
+The \texttt{LogLevel} enumeration defines the severity levels available for logging operations. Each level indicates the importance and type of information being logged, which helps in filtering and prioritization of log entries during application diagnostics and monitoring.
+
+\subsubsection*{Values}
+
+\begin{itemize}
+    \item \textbf{Error} (\texttt{0}): Logs error messages indicating failures within the application that may not be recoverable without intervention.
+    \item \textbf{Info} (\texttt{1}): Logs informational messages that highlight the progress and state of the application under normal operation.
+    \item \textbf{Verbose} (\texttt{2}): Logs detailed information, generally used for debugging purposes to provide in-depth insights into the application's behavior.
+    \item \textbf{Warning} (\texttt{3}): Logs warnings which are not critical but could potentially cause problems or require attention.
+    \item \textbf{Fatal} (\texttt{4}): Logs critical problems that cause the application to terminate or enter a state from which it cannot continue running.
+\end{itemize}
 \end{document}

@@ -228,6 +228,7 @@ Men etter første metode for å håndtere disse eventsene var det intuivt hvorda
 rammeverk uten `overraskelser'.
 
 \section{Implementasjon av grafisk grensesnitt}
+
 \includegraphics*[scale=0.6]{gui.png}
 
 Som krav til denne delinnleveringen skulle vi implementere et grafisk grensesnitt for 
@@ -238,6 +239,9 @@ Vi benyttet WPF for denne delen.
 Etter å ha lagt til de nødvendige objektene, kan en simulering kjøres ved å trykke på ``Start Simulation''-knappen.
 Output fra simuleringen vises i en \texttt{RichTextBox} nederst i grensesnittet. \footnote{Visse begrensninger medfølger.}
 
+Oppgaven ber tydelig om at APIen skal bli inkludert via en nuget-pakke. Da vi tidligere hadde problemer med å få til
+eksportering av nuget-pakker, valgte vi å inkludere APIen som en prosjektreferanse. Det vil si at det grafiske grensesnittet
+\emph{ikke} er i en egen solution, men heller under et annet prosjekt i API-løsningen.
 \subsection{Bruk}
 Grensesnittet gjør det mulig å opprette havner, skip, kaiplasser og seilinger. Visse felt er påkrevd for å opprette objektene, 
 og det er lagt til validering for å hindre at brukeren oppretter objekter uten nødvendig informasjon. 
